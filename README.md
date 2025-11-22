@@ -1,6 +1,6 @@
-# MediGraph Triage
+# Synapse-Dx
 
-A high-speed medical diagnostic assistant using Neo4j (Knowledge Graph), Qdrant (Vector Search), and Gemini 2.5 Flash.
+A Neuro-Symbolic KG-RAG Diagnostic Engine. Achieves <500ms retrieval latency by fusing vector search (Qdrant) with structured medical ontologies (Neo4j/PrimeKG) to ground LLM reasoning in verified clinical protocols.
 
 ## Setup Instructions
 
