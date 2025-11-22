@@ -19,6 +19,11 @@ Install the required dependencies:
 pip install -r requirements.txt
 ```
 
+### 2.1. Activate Virtual Environment
+```bash
+source venv/bin/activate
+```
+
 ### 3. Configuration
 Copy `.env.example` to `.env` and add your API keys:
 ```bash
