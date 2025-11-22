@@ -1,0 +1,21 @@
+services:
+  neo4j:
+    image: neo4j:community
+    container_name: medai_neo4j
+    ports:
+      - "7474:7474" # HTTP Interface (Browser)
+      - "7687:7687" # Bolt Protocol (Application access)
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    volumes:
+      - ./data/neo4j:/data
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: medai_qdrant
+    ports:
+      - "6333:6333" # API and Dashboard
+    volumes:
+      - ./data/qdrant:/qdrant/storage
+    restart: unless-stopped

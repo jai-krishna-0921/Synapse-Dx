@@ -1,0 +1,11 @@
+neo4j
+qdrant-client
+sentence-transformers
+google-generativeai
+fastapi
+uvicorn
+pandas
+pypdf
+python-dotenv
+pytest
+httpx
