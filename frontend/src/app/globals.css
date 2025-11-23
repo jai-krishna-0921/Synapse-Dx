@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --main-bg: #202123;
+  --sidebar-bg: #2a2b2e;
+  --input-bg: #40414f;
+  --border-color: #3c3d3f;
+  --input-border: #565869;
+  --text-primary: #ececf1;
+  --text-secondary: #8e8e90;
+  --hover-bg: #343541;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--main-bg);
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: var(--font-lato);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-inter);
+}
+
+/* Markdown Prose Styling */
+.prose {
+  max-width: 65ch;
+}
+
+.prose p {
+  margin: 0.5em 0;
+}
+
+.prose code {
+  background: #2d2d2d;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: var(--font-jetbrains);
+}
+
+.prose pre {
+  background: #2d2d2d;
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-family: var(--font-jetbrains);
+}
+
+.prose strong {
+  font-weight: 600;
+  color: #ececf1;
+}
+
+.prose ul,
+.prose ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #565869;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6e6e80;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
