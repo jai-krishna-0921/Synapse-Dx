@@ -3,8 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Send, Sparkles, StopCircle, PanelLeft, Plus, Mic, Copy, RotateCcw, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { Streamdown } from "streamdown";
 import Sidebar from "./Sidebar";
 
 interface Message {
@@ -253,9 +252,9 @@ export default function ChatInterface() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="text-[15px] text-[#ececf1] leading-relaxed prose prose-invert max-w-none">
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            <Streamdown>
                               {msg.content}
-                            </ReactMarkdown>
+                            </Streamdown>
                             {isLoading && idx === messages.length - 1 && (
                               <motion.span
                                 animate={{ opacity: [0.4, 1, 0.4] }}
