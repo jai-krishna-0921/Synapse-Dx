@@ -196,7 +196,7 @@ export default function ChatInterface() {
               </button>
               <Tooltip text={isSidebarOpen ? "Close sidebar" : "Open sidebar"} show={hoveredButton === 'sidebar'} />
             </div>
-            <span className="font-semibold text-[#ececf1] font-[family-name:var(--font-inter)]">MediGraph 1.0</span>
+            <span className="font-semibold text-[#ececf1]">MediGraph 1.0</span>
           </div>
           <div
             className="relative"
@@ -221,7 +221,7 @@ export default function ChatInterface() {
               transition={{ duration: 0.5 }}
               className="h-full flex flex-col items-center justify-center px-4 pb-32"
             >
-              <h1 className="text-4xl font-semibold text-[#ececf1] font-[family-name:var(--font-inter)] mb-12">How can I help you, Jk?</h1>
+              <h1 className="text-4xl font-semibold text-[#ececf1] mb-12">How can I help you, Jk?</h1>
             </motion.div>
           ) : (
             <div className="w-full px-4 pb-32 pt-6">
@@ -236,7 +236,7 @@ export default function ChatInterface() {
                   >
                     {msg.role === "user" ? (
                       /* User Message - Right-aligned bubble */
-                      <div className="flex justify-end max-w-5xl mx-auto">
+                      <div className="flex justify-end max-w-3xl mx-auto pr-16">
                         <div className="max-w-[75%] bg-[#343541] rounded-2xl px-4 py-3">
                           <div className="text-[15px] text-[#ececf1] leading-relaxed whitespace-pre-wrap break-words">
                             {msg.content}
@@ -245,7 +245,7 @@ export default function ChatInterface() {
                       </div>
                     ) : (
                       /* AI Message - Full width with left avatar */
-                      <div className="flex gap-3 items-start max-w-5xl mx-auto">
+                      <div className="flex gap-3 items-start max-w-3xl mx-auto">
                         <div className="flex-shrink-0 mt-1">
                           <div className="w-8 h-8 rounded-full bg-[#19c37d] flex items-center justify-center">
                             <Sparkles className="w-5 h-5 text-white" />
@@ -344,7 +344,7 @@ export default function ChatInterface() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask anything"
-                  className="flex-1 max-h-[200px] bg-transparent border-0 focus:outline-none resize-none text-[#ececf1] placeholder-[#8e8e90] text-[15px] leading-relaxed font-[family-name:var(--font-lato)]"
+                  className="flex-1 max-h-[200px] bg-transparent border-0 focus:outline-none resize-none text-[#ececf1] placeholder-[#8e8e90] text-[15px] leading-relaxed"
                   rows={1}
                 />
 
