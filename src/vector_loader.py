@@ -75,6 +75,7 @@ class VectorLoader:
                         id=point_id,
                         vector=embedding,
                         payload={
+                            "name": f"{os.path.basename(file_path)}_chunk_{i}",  # Required by Agno
                             "source": os.path.basename(file_path),
                             "text": chunk,
                             "chunk_index": i

@@ -3,8 +3,22 @@ from pydantic import BaseModel
 from src.reasoning import HybridReasoner
 import uvicorn
 import os
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import StreamingResponse
 
 app = FastAPI(title="MediGraph Triage", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/")
+async def root():
+    return {"status": "online", "service": "MediGraph Triage API", "docs": "/docs"}
 
 # Initialize Reasoner (Global state)
 reasoner = None
@@ -17,6 +31,8 @@ async def startup_event():
         print("HybridReasoner initialized.")
     except Exception as e:
         print(f"Failed to initialize HybridReasoner: {e}")
+        # Optionally re-raise or handle more gracefully if startup must fail
+        # raise HTTPException(status_code=500, detail=f"Failed to initialize reasoner: {e}")
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -28,11 +44,7 @@ class TriageRequest(BaseModel):
     symptoms: str
     history: str = ""
 
-class TriageResponse(BaseModel):
-    diagnosis: str
-    triage_level: str
-    reasoning: str
-    latency_ms: float
+# TriageResponse model is no longer needed for streaming endpoint
 
 @app.post("/triage")
 async def triage_endpoint(request: TriageRequest):
@@ -40,23 +52,11 @@ async def triage_endpoint(request: TriageRequest):
         raise HTTPException(status_code=503, detail="Reasoner not initialized")
     
     try:
-        result = reasoner.triage(request.symptoms, request.history)
-        # Parse the JSON string from Gemini
-        import json
-        
-        # Clean up potential markdown code blocks
-        text_result = result["result"]
-        if text_result.startswith("```json"):
-            text_result = text_result[7:]
-        if text_result.endswith("```"):
-            text_result = text_result[:-3]
-            
-        parsed_result = json.loads(text_result)
-        
-        return {
-            **parsed_result,
-            "latency_ms": result["latency_ms"]
-        }
+        # Assuming reasoner.triage_stream returns an async generator
+        return StreamingResponse(
+            reasoner.triage_stream(request.symptoms, request.history),
+            media_type="text/event-stream"
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

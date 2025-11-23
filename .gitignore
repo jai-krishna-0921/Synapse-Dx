@@ -6,6 +6,9 @@ venv/
 .pytest_cache/
 data/
 Docs/
+node_modules/
+.gemini
+screenshots/
 
 ### AL ###
 #Template for AL projects for Dynamics 365 Business Central
