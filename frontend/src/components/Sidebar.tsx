@@ -6,13 +6,14 @@ import { motion } from "framer-motion";
 interface SidebarProps {
     isOpen: boolean;
     toggleSidebar: () => void;
+    onNewChat: () => void;
 }
 
-export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+export default function Sidebar({ isOpen, toggleSidebar, onNewChat }: SidebarProps) {
     if (!isOpen) return null;
 
     const navItems = [
-        { icon: MessageSquare, label: "New chat", onClick: () => console.log("New chat") },
+        { icon: MessageSquare, label: "New chat", onClick: onNewChat },
         { icon: Search, label: "Search chats" },
         { icon: Book, label: "Library" },
         { icon: FolderOpen, label: "Projects" },
@@ -40,6 +41,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
             {/* New Chat Button */}
             <div className="p-2">
                 <button
+                    onClick={onNewChat}
                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg border border-[#3c3d3f] bg-transparent text-[#ececf1] hover:bg-[#343541] transition-colors"
                     title="Start a new chat"
                 >

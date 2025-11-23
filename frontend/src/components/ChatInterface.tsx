@@ -23,6 +23,18 @@ export default function ChatInterface() {
   const abortControllerRef = useRef<AbortController | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const [sessionId, setSessionId] = useState("");
+
+  useEffect(() => {
+    setSessionId(crypto.randomUUID());
+  }, []);
+
+  const startNewChat = () => {
+    setSessionId(crypto.randomUUID());
+    setMessages([]);
+    setInput("");
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -78,7 +90,12 @@ export default function ChatInterface() {
       const response = await fetch("http://localhost:8000/triage", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ symptoms: messageContent, history: "None provided" }),
+        body: JSON.stringify({
+          symptoms: messageContent,
+          history: "None provided",
+          session_id: sessionId,
+          user_id: "web_user"
+        }),
         signal: abortControllerRef.current.signal,
       });
 
@@ -154,8 +171,11 @@ export default function ChatInterface() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="z-40"
           >
-            <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-          </motion.div>
+            <Sidebar
+              isOpen={isSidebarOpen}
+              toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+              onNewChat={startNewChat}
+            />    </motion.div>
         )}
       </AnimatePresence>
 

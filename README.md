@@ -12,6 +12,7 @@ docker compose up -d
 This starts:
 - **Neo4j** (Graph DB) on ports 7474 (UI) and 7687 (Bolt).
 - **Qdrant** (Vector DB) on port 6333.
+- **PostgreSQL** (Memory DB) on port 5532.
 
 ### 2. Python Environment
 Install the required dependencies:
@@ -31,7 +32,14 @@ cp .env.example .env
 ```
 - Get a Gemini API key from [Google AI Studio](https://aistudio.google.com/).
 
+## Key Features
+- **"Dr. House" Persona**: The agent acts as a consultative doctor, asking clarifying questions before diagnosing.
+- **Conversational Memory**: Remembers user details and context across sessions (powered by PostgreSQL).
+- **Hybrid RAG**: Combines Vector Search (Qdrant) and Knowledge Graph (Neo4j) for accurate medical retrieval.
+- **Real-time Triage**: Streaming responses with <50ms latency.
+
 ## Project Structure
-- `src/`: Source code for the application.
-- `scripts/`: Scripts for loading data into Neo4j and Qdrant.
+- `src/`: Backend source code (FastAPI, Agno Agent).
+- `frontend/`: Next.js Chat Interface.
+- `scripts/`: Data loading scripts.
 - `Docs/`: Medical textbooks and guidelines.

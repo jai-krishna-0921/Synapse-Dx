@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from typing import Optional
 from src.reasoning import HybridReasoner
 import uvicorn
 import os
@@ -43,19 +44,28 @@ async def shutdown_event():
 class TriageRequest(BaseModel):
     symptoms: str
     history: str = ""
+    session_id: Optional[str] = None
+    user_id: Optional[str] = None
 
 # TriageResponse model is no longer needed for streaming endpoint
 
 @app.post("/triage")
-async def triage_endpoint(request: TriageRequest):
+async def triage(request: TriageRequest):
+    """
+    Triage endpoint that streams the assessment.
+    """
     if not reasoner:
         raise HTTPException(status_code=503, detail="Reasoner not initialized")
     
     try:
-        # Assuming reasoner.triage_stream returns an async generator
         return StreamingResponse(
-            reasoner.triage_stream(request.symptoms, request.history),
-            media_type="text/event-stream"
+            reasoner.triage_stream(
+                request.symptoms, 
+                request.history,
+                session_id=request.session_id,
+                user_id=request.user_id
+            ),
+            media_type="text/plain"
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
